@@ -10,16 +10,44 @@ mensagem no WhatsApp — só que numa aba específica do app.
 
 ---
 
-## Parte 1 — instalação (faz uma vez só, com ajuda do time técnico)
+## Parte 1 — instalação (faz uma vez só, sozinho, sem pedir ajuda)
 
-Antes de usar, a ferramenta precisa estar instalada no seu computador. Isso é
-trabalho técnico — peça pra alguém do time de dev fazer isso uma vez:
+Antes de usar pela primeira vez, roda os passos abaixo. É só copiar e colar
+cada bloco — não precisa entender o que faz.
 
-1. Repositório: https://github.com/IDK-Brasil/claude-skill-ata
-2. Seguir o `README.md` de lá (instalar dependências Python + configurar o
-   token do Hugging Face).
+**1. Instale o Git e o Python**, se ainda não tiver (pula quem já usa Claude
+Code normalmente):
+```powershell
+winget install --id Git.Git -e
+winget install --id Python.Python.3.12 -e
+winget install --id Gyan.FFmpeg -e
+```
+Feche e abra o terminal de novo depois disso.
 
-Depois de instalado, você nunca mais precisa mexer nisso.
+**2. Baixe a skill e instale as dependências:**
+```powershell
+git clone https://github.com/IDK-Brasil/claude-skill-ata.git "$env:USERPROFILE\.claude\skills\ata"
+cd "$env:USERPROFILE\.claude\skills\ata"
+python -m pip install -r requirements.txt
+```
+
+**3. (Opcional, mas recomendado) Ative a separação por locutor** — sem isso,
+a transcrição sai sem dizer quem falou o quê:
+1. Crie uma conta grátis e um token em https://huggingface.co/settings/tokens
+2. Aceite os termos, logado com essa conta, nestes 3 links:
+   - https://huggingface.co/pyannote/speaker-diarization-3.1
+   - https://huggingface.co/pyannote/segmentation-3.0
+   - https://huggingface.co/pyannote/speaker-diarization-community-1
+3. Cole o token aqui (troca `SEU_TOKEN` pelo que você copiou):
+   ```powershell
+   python -c "from huggingface_hub import login; login(token='SEU_TOKEN')"
+   ```
+
+**4. Confira se deu tudo certo:**
+```powershell
+python "$env:USERPROFILE\.claude\skills\ata\scripts\setup.py"
+```
+Se não der erro, terminou — nunca mais precisa mexer nisso.
 
 ---
 
@@ -43,8 +71,9 @@ Digite uma mensagem normal, por exemplo:
 
 > transcreve essa reunião e gera a ata: `C:\caminho\do\video.mp4`
 
-Ou, se o vídeo já está numa pasta padrão de gravações (pergunte ao time
-técnico se existe uma configurada):
+Ou, se você sempre grava na mesma pasta, é só falar isso uma vez pro Claude
+("minhas gravações ficam sempre em `C:\...`") — ele lembra da próxima vez, e
+depois é só pedir:
 
 > gera a ata da reunião mais recente
 
@@ -80,8 +109,7 @@ Confere se você está na aba **Code**, não em "Chat e Cowork". Só a aba Code
 tem acesso a essa ferramenta.
 
 **"Deu erro de que falta alguma coisa (ffmpeg, faster-whisper, etc)."**
-A instalação da Parte 1 não foi feita nesse computador ainda — chama o time
-técnico.
+Refaça a Parte 1 nesse computador — alguma etapa não rodou certo.
 
 **"Posso usar em qualquer reunião, mesmo sem ser de cliente?"**
 Sim — funciona pra qualquer gravação de vídeo/áudio, é só apontar o
