@@ -52,6 +52,13 @@ Face) na primeira vez.
 
 ## Uso
 
+Funciona nas abas **Code** e **Cowork** do Claude Desktop. Na aba Code, o
+Claude já descobre a skill sozinho a partir de `~/.claude/skills/ata`. Na aba
+Cowork — que não lê essa pasta, tem seu próprio sistema de skills por upload
+— é preciso zipar essa pasta e subir em **Customize → Skills** (veja
+`ONBOARDING.md`, Parte 1, passo 5); as dependências Python também precisam
+ser instaladas de novo lá, o ambiente não é compartilhado com o Code.
+
 Dentro de uma sessão do Claude Code:
 
 ```

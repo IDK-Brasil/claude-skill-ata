@@ -13,7 +13,9 @@ mensagem no WhatsApp — só que numa aba específica do app.
 ## Parte 1 — instalação (faz uma vez só, sozinho, sem pedir ajuda)
 
 Antes de usar pela primeira vez, roda os passos abaixo. É só copiar e colar
-cada bloco — não precisa entender o que faz.
+cada bloco — não precisa entender o que faz. Os passos são os mesmos pra
+**Code** ou **Cowork**; a única diferença entre as duas abas é o "Passo extra
+pra Cowork" no fim desta parte.
 
 **1. Instale o Git e o Python**, se ainda não tiver (pula quem já usa Claude
 Code normalmente):
@@ -49,15 +51,30 @@ python "$env:USERPROFILE\.claude\skills\ata\scripts\setup.py"
 ```
 Se não der erro, terminou — nunca mais precisa mexer nisso.
 
+**5. Passo extra pra quem vai usar na aba Cowork:** a aba Cowork não lê a
+pasta `~/.claude/skills/` — ela tem seu próprio sistema de skills, por
+upload. Faz assim:
+1. Zip a pasta `$env:USERPROFILE\.claude\skills\ata` inteira (o `SKILL.md`
+   tem que ficar direto na raiz do .zip, não dentro de uma subpasta).
+2. Na aba Cowork, abre **Customize → Skills → "+" → Browse skills** e sobe
+   esse .zip.
+3. Pede pro Claude, dentro do Cowork, rodar de novo o `pip install -r
+   requirements.txt` e o `setup.py` (passos 2 e 4 acima) — o ambiente Python
+   do Cowork é separado, então instalar uma vez na aba Code não é suficiente
+   pra aba Cowork usar.
+   Isso precisa de plano pago com execução de código habilitada no Cowork.
+
 ---
 
 ## Parte 2 — como usar no dia a dia
 
 ### Passo 1 — abrir a aba certa
 
-Abra o **Claude** no seu computador. No topo tem duas abas: **"Chat e
-Cowork"** e **"Code"**. Clique em **Code**. É só nessa aba que a ferramenta
-funciona (na outra aba ela não aparece).
+Abra o **Claude** no seu computador. No topo tem as abas **"Chat e Cowork"**
+e **"Code"** — as duas funcionam, desde que você tenha feito o "Passo extra
+pra Cowork" da Parte 1 (upload do .zip em Customize → Skills). Se ainda não
+fez isso e está na aba Cowork, ou volta pra Parte 1, ou usa a aba **Code**
+por enquanto (nela funciona direto, sem upload nenhum).
 
 ### Passo 2 — abrir uma pasta de trabalho
 
@@ -105,8 +122,10 @@ mesmo tempo.
 ## Perguntas comuns
 
 **"Digitei e não apareceu nada de especial, só uma resposta genérica."**
-Confere se você está na aba **Code**, não em "Chat e Cowork". Só a aba Code
-tem acesso a essa ferramenta.
+Na aba **Code**: confere se a pasta `~/.claude/skills/ata` existe (Parte 1,
+passo 2). Na aba **Cowork**: confere se você fez o upload do .zip em
+Customize → Skills (Parte 1, passo 5) — sem isso, o Cowork não conhece essa
+skill.
 
 **"Deu erro de que falta alguma coisa (ffmpeg, faster-whisper, etc)."**
 Refaça a Parte 1 nesse computador — alguma etapa não rodou certo.
